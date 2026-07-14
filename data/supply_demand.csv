@@ -1,0 +1,131 @@
+date,crude_name,supply_volume,demand_volume,unit,region
+2025-04-09,WTI,4296321.0,3966781.0,barrels,Africa
+2025-05-09,WTI,4224229.0,4014577.0,barrels,Middle East
+2025-06-08,WTI,4041135.0,3895323.0,barrels,North America
+2025-07-08,WTI,3700897.0,3486524.0,barrels,Asia
+2025-08-07,WTI,3628232.0,3460136.0,barrels,Asia
+2025-09-06,WTI,3586563.0,3222795.0,barrels,Middle East
+2025-10-06,WTI,3675666.0,3404617.0,barrels,Asia
+2025-11-05,WTI,3598919.0,3506078.0,barrels,North America
+2025-12-05,WTI,4052198.0,3627459.0,barrels,Africa
+2026-01-04,WTI,4300970.0,4014300.0,barrels,Middle East
+2026-02-03,WTI,4190260.0,3873637.0,barrels,Europe
+2026-03-05,WTI,4134761.0,4220497.0,barrels,Europe
+2026-04-04,WTI,4265125.0,4154159.0,barrels,Asia
+2025-04-09,Brent,4466369.0,4215002.0,barrels,North America
+2025-05-09,Brent,4110608.0,4160215.0,barrels,Middle East
+2025-06-08,Brent,4008045.0,3839320.0,barrels,North America
+2025-07-08,Brent,3974206.0,3475874.0,barrels,Africa
+2025-08-07,Brent,3739776.0,3320551.0,barrels,Asia
+2025-09-06,Brent,3813097.0,3284733.0,barrels,Asia
+2025-10-06,Brent,3887685.0,3419841.0,barrels,Middle East
+2025-11-05,Brent,3731350.0,3776726.0,barrels,Middle East
+2025-12-05,Brent,3954910.0,3803453.0,barrels,Europe
+2026-01-04,Brent,4087180.0,4071698.0,barrels,Middle East
+2026-02-03,Brent,4260789.0,4296024.0,barrels,Africa
+2026-03-05,Brent,4422400.0,4392695.0,barrels,Europe
+2026-04-04,Brent,4384530.0,4088020.0,barrels,Africa
+2025-04-09,Dubai,4934531.0,4725096.0,barrels,North America
+2025-05-09,Dubai,4586006.0,4561197.0,barrels,Asia
+2025-06-08,Dubai,4311242.0,4430478.0,barrels,Asia
+2025-07-08,Dubai,4179087.0,3953916.0,barrels,Africa
+2025-08-07,Dubai,3903859.0,4130977.0,barrels,Middle East
+2025-09-06,Dubai,4204827.0,3993301.0,barrels,Asia
+2025-10-06,Dubai,4054179.0,3909094.0,barrels,Europe
+2025-11-05,Dubai,4212780.0,4020700.0,barrels,Asia
+2025-12-05,Dubai,4589143.0,4428512.0,barrels,North America
+2026-01-04,Dubai,4571032.0,4678760.0,barrels,Africa
+2026-02-03,Dubai,4663655.0,4467488.0,barrels,North America
+2026-03-05,Dubai,5016747.0,4789763.0,barrels,North America
+2026-04-04,Dubai,4803429.0,4611877.0,barrels,Africa
+2025-04-09,Oman,1195149.0,1084584.0,barrels,Middle East
+2025-05-09,Oman,1078613.0,1045349.0,barrels,North America
+2025-06-08,Oman,1079076.0,1035448.0,barrels,Europe
+2025-07-08,Oman,997467.0,968184.0,barrels,North America
+2025-08-07,Oman,963528.0,962597.0,barrels,Europe
+2025-09-06,Oman,939581.0,925118.0,barrels,Asia
+2025-10-06,Oman,1008636.0,911857.0,barrels,Europe
+2025-11-05,Oman,1004938.0,946535.0,barrels,Middle East
+2025-12-05,Oman,1112929.0,1048737.0,barrels,Africa
+2026-01-04,Oman,1142883.0,1039331.0,barrels,North America
+2026-02-03,Oman,1227502.0,1091295.0,barrels,Africa
+2026-03-05,Oman,1160744.0,1070289.0,barrels,North America
+2026-04-04,Oman,1125069.0,1077804.0,barrels,Africa
+2025-04-09,Urals,2185009.0,2132326.0,barrels,Asia
+2025-05-09,Urals,2100863.0,2102883.0,barrels,Asia
+2025-06-08,Urals,1894957.0,1917169.0,barrels,Africa
+2025-07-08,Urals,1919909.0,1962549.0,barrels,Asia
+2025-08-07,Urals,1827044.0,1850820.0,barrels,Asia
+2025-09-06,Urals,1728456.0,1805884.0,barrels,Middle East
+2025-10-06,Urals,1706267.0,1816156.0,barrels,Africa
+2025-11-05,Urals,1758598.0,1855814.0,barrels,Europe
+2025-12-05,Urals,1984929.0,2044712.0,barrels,Middle East
+2026-01-04,Urals,2016851.0,2044255.0,barrels,North America
+2026-02-03,Urals,2027620.0,2181914.0,barrels,Asia
+2026-03-05,Urals,2124904.0,2110330.0,barrels,Europe
+2026-04-04,Urals,2152971.0,2074493.0,barrels,Middle East
+2025-04-09,Maya,4536728.0,5045660.0,barrels,Asia
+2025-05-09,Maya,4524857.0,4810387.0,barrels,North America
+2025-06-08,Maya,4232542.0,4674006.0,barrels,Middle East
+2025-07-08,Maya,4009133.0,4750726.0,barrels,Africa
+2025-08-07,Maya,4020408.0,4157801.0,barrels,Asia
+2025-09-06,Maya,4004206.0,4317743.0,barrels,Europe
+2025-10-06,Maya,3998890.0,4405053.0,barrels,North America
+2025-11-05,Maya,4199993.0,4559443.0,barrels,Middle East
+2025-12-05,Maya,4336141.0,4778085.0,barrels,Europe
+2026-01-04,Maya,4597903.0,5212546.0,barrels,Africa
+2026-02-03,Maya,4844091.0,5243401.0,barrels,Africa
+2026-03-05,Maya,4747823.0,5500461.0,barrels,Asia
+2026-04-04,Maya,4517596.0,5138333.0,barrels,Europe
+2025-04-09,Bonny Light,2783480.0,2771263.0,barrels,Asia
+2025-05-09,Bonny Light,2643731.0,2685808.0,barrels,Africa
+2025-06-08,Bonny Light,2567946.0,2548970.0,barrels,North America
+2025-07-08,Bonny Light,2529433.0,2474510.0,barrels,North America
+2025-08-07,Bonny Light,2279718.0,2475298.0,barrels,Africa
+2025-09-06,Bonny Light,2416038.0,2381867.0,barrels,North America
+2025-10-06,Bonny Light,2259463.0,2422576.0,barrels,North America
+2025-11-05,Bonny Light,2557896.0,2385820.0,barrels,Asia
+2025-12-05,Bonny Light,2619741.0,2594257.0,barrels,Africa
+2026-01-04,Bonny Light,2846921.0,2787162.0,barrels,North America
+2026-02-03,Bonny Light,2703968.0,2971931.0,barrels,North America
+2026-03-05,Bonny Light,2872971.0,2840504.0,barrels,Middle East
+2026-04-04,Bonny Light,2740794.0,2712629.0,barrels,Africa
+2025-04-09,Arab Light,1416546.0,1435437.0,barrels,Europe
+2025-05-09,Arab Light,1363297.0,1375326.0,barrels,Europe
+2025-06-08,Arab Light,1330618.0,1275759.0,barrels,Asia
+2025-07-08,Arab Light,1347451.0,1216555.0,barrels,Africa
+2025-08-07,Arab Light,1205659.0,1176091.0,barrels,Asia
+2025-09-06,Arab Light,1199880.0,1223502.0,barrels,North America
+2025-10-06,Arab Light,1178135.0,1174122.0,barrels,Asia
+2025-11-05,Arab Light,1315659.0,1198097.0,barrels,Asia
+2025-12-05,Arab Light,1414582.0,1332265.0,barrels,Europe
+2026-01-04,Arab Light,1375888.0,1343458.0,barrels,North America
+2026-02-03,Arab Light,1434986.0,1485590.0,barrels,Europe
+2026-03-05,Arab Light,1445897.0,1502190.0,barrels,Asia
+2026-04-04,Arab Light,1450633.0,1360450.0,barrels,Middle East
+2025-04-09,Forties,4799898.0,4850379.0,barrels,Europe
+2025-05-09,Forties,4706225.0,4950224.0,barrels,Asia
+2025-06-08,Forties,4536303.0,4581813.0,barrels,Africa
+2025-07-08,Forties,4069893.0,4417945.0,barrels,North America
+2025-08-07,Forties,4144062.0,4431942.0,barrels,Asia
+2025-09-06,Forties,3833078.0,4211914.0,barrels,Africa
+2025-10-06,Forties,4041822.0,4378523.0,barrels,Middle East
+2025-11-05,Forties,4331844.0,4313472.0,barrels,Europe
+2025-12-05,Forties,4654155.0,4535934.0,barrels,North America
+2026-01-04,Forties,4613081.0,4758713.0,barrels,Asia
+2026-02-03,Forties,4627057.0,4910078.0,barrels,North America
+2026-03-05,Forties,5119862.0,5307361.0,barrels,Africa
+2026-04-04,Forties,5030381.0,4954553.0,barrels,Europe
+2025-04-09,Basra Light,1231076.0,1342434.0,barrels,North America
+2025-05-09,Basra Light,1175318.0,1352925.0,barrels,North America
+2025-06-08,Basra Light,1150501.0,1270353.0,barrels,Europe
+2025-07-08,Basra Light,1101287.0,1221740.0,barrels,Africa
+2025-08-07,Basra Light,1072228.0,1133817.0,barrels,Africa
+2025-09-06,Basra Light,1063120.0,1141556.0,barrels,Africa
+2025-10-06,Basra Light,1050577.0,1099172.0,barrels,Europe
+2025-11-05,Basra Light,1068938.0,1117443.0,barrels,North America
+2025-12-05,Basra Light,1097046.0,1230729.0,barrels,Middle East
+2026-01-04,Basra Light,1233214.0,1327269.0,barrels,North America
+2026-02-03,Basra Light,1281230.0,1356104.0,barrels,North America
+2026-03-05,Basra Light,1236422.0,1375590.0,barrels,Europe
+2026-04-04,Basra Light,1225488.0,1383497.0,barrels,Africa

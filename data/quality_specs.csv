@@ -1,0 +1,12 @@
+product_type,specification,min_value,max_value,unit
+Diesel,Sulfur Content,0.0,0.0015,% weight
+Diesel,Cetane Number,40.0,100.0,number
+Diesel,Flash Point,52.0,200.0,°C
+Diesel,Density,820.0,845.0,kg/m³
+Gasoline,Octane Number,87.0,95.0,RON
+Gasoline,Sulfur Content,0.0,0.001,% weight
+Gasoline,RVP,45.0,62.0,kPa
+Gasoline,Benzene,0.0,1.0,% volume
+Jet Fuel,Flash Point,38.0,100.0,°C
+Jet Fuel,Freeze Point,-60.0,-47.0,°C
+Jet Fuel,Sulfur Content,0.0,0.3,% weight

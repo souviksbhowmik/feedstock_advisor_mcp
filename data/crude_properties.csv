@@ -1,0 +1,11 @@
+crude_name,api_gravity,sulfur_content,viscosity,pour_point,tan,region,density_kg_m3
+WTI,39.5,0.485,37.94,-0.1,0.396,Middle East,827.49
+Brent,38.4,0.338,20.02,-22.9,1.337,Africa,832.84
+Dubai,34.85,2.332,14.56,-20.9,0.448,Asia,850.62
+Oman,33.06,1.507,6.04,-3.8,0.86,Asia,859.88
+Urals,27.79,2.849,9.08,0.9,0.827,Asia,888.32
+Maya,24.74,2.57,32.34,-21.5,0.224,Asia,905.66
+Bonny Light,41.77,0.369,22.34,-29.2,0.539,Asia,816.65
+Arab Light,32.2,1.622,27.28,-28.3,1.828,Asia,864.38
+Forties,21.46,3.633,24.13,-19.6,1.179,Africa,925.09
+Basra Light,27.76,3.663,47.28,14.7,1.236,Asia,888.5

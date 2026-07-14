@@ -1,0 +1,11 @@
+refinery_id,refinery_name,location,capacity_bpd,complexity_index,has_hydrocracker,has_fcc,has_coker,diesel_max_capacity,gasoline_max_capacity
+REF_001,Refinery A,Africa,351463,7.6,True,True,True,89965.0,119059.0
+REF_002,Refinery B,Africa,180170,11.78,False,True,True,49790.0,72316.0
+REF_003,Refinery C,Asia,353555,13.28,True,True,True,28960.0,40572.0
+REF_004,Refinery D,Middle East,391024,7.47,True,True,False,78086.0,68955.0
+REF_005,Refinery E,North America,382335,12.35,True,True,False,58380.0,124932.0
+REF_006,Refinery F,Middle East,428185,8.29,False,True,False,126269.0,144064.0
+REF_007,Refinery G,North America,410008,13.69,True,True,True,44187.0,29809.0
+REF_008,Refinery H,Africa,225731,13.81,True,True,False,73872.0,87813.0
+REF_009,Refinery I,Middle East,267706,11.97,False,True,False,45422.0,76062.0
+REF_010,Refinery J,Europe,313024,5.97,True,True,True,143950.0,78019.0

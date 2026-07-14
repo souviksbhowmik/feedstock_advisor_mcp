@@ -1,0 +1,11 @@
+refinery_id,refinery_name,location,country,capacity_bpd,complexity_index,configuration_type,has_hydrocracker,has_fcc,has_coker
+REF_001,Refinery A,Houston,USA,421844,5.77,Simple,False,True,False
+REF_002,Refinery B,Rotterdam,Japan,168053,9.74,Complex,True,True,False
+REF_003,Refinery C,Singapore,India,168328,12.54,Coking,False,True,True
+REF_004,Refinery D,Dubai,Netherlands,389943,13.31,Hydrocracking,True,True,True
+REF_005,Refinery E,Lagos,Japan,201140,6.21,Simple,False,True,False
+REF_006,Refinery F,Mumbai,Saudi Arabia,190444,8.38,Complex,True,True,False
+REF_007,Refinery G,Tokyo,Nigeria,391000,11.06,Coking,False,True,True
+REF_008,Refinery H,Los Angeles,Singapore,316376,15.64,Hydrocracking,True,True,True
+REF_009,Refinery I,Jeddah,Singapore,307086,6.7,Simple,False,True,False
+REF_010,Refinery J,Shanghai,Japan,346886,9.42,Complex,True,True,False

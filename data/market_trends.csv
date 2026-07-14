@@ -1,0 +1,266 @@
+date,product_type,demand_trend,price_trend,market_sentiment,inventory_level
+2025-04-09,Diesel,Increasing,Neutral,0.79,High
+2025-04-16,Diesel,Stable,Bullish,-0.66,Normal
+2025-04-23,Diesel,Stable,Neutral,-0.56,Normal
+2025-04-30,Diesel,Decreasing,Bearish,0.31,Normal
+2025-05-07,Diesel,Stable,Neutral,0.63,High
+2025-05-14,Diesel,Increasing,Bearish,0.06,Low
+2025-05-21,Diesel,Increasing,Neutral,0.85,Low
+2025-05-28,Diesel,Decreasing,Bearish,0.34,Low
+2025-06-04,Diesel,Stable,Neutral,0.87,Low
+2025-06-11,Diesel,Increasing,Neutral,-0.89,High
+2025-06-18,Diesel,Decreasing,Neutral,0.72,Normal
+2025-06-25,Diesel,Stable,Bullish,-0.12,Low
+2025-07-02,Diesel,Stable,Bullish,0.89,Low
+2025-07-09,Diesel,Decreasing,Bearish,-0.39,Low
+2025-07-16,Diesel,Stable,Neutral,-0.3,Normal
+2025-07-23,Diesel,Increasing,Neutral,-0.26,Normal
+2025-07-30,Diesel,Increasing,Neutral,0.64,High
+2025-08-06,Diesel,Decreasing,Bearish,0.91,High
+2025-08-13,Diesel,Decreasing,Bearish,-0.49,High
+2025-08-20,Diesel,Decreasing,Bearish,0.11,Normal
+2025-08-27,Diesel,Decreasing,Bullish,0.57,Low
+2025-09-03,Diesel,Increasing,Neutral,-0.02,Normal
+2025-09-10,Diesel,Increasing,Bullish,-0.78,Normal
+2025-09-17,Diesel,Stable,Neutral,0.13,Low
+2025-09-24,Diesel,Decreasing,Bullish,-0.38,Low
+2025-10-01,Diesel,Stable,Bearish,0.72,Low
+2025-10-08,Diesel,Decreasing,Neutral,0.61,Low
+2025-10-15,Diesel,Decreasing,Bullish,0.14,Normal
+2025-10-22,Diesel,Increasing,Bearish,0.35,Normal
+2025-10-29,Diesel,Stable,Bullish,0.87,Low
+2025-11-05,Diesel,Increasing,Bearish,-0.75,High
+2025-11-12,Diesel,Increasing,Bullish,0.76,Normal
+2025-11-19,Diesel,Increasing,Bearish,0.06,Low
+2025-11-26,Diesel,Increasing,Bearish,0.6,High
+2025-12-03,Diesel,Stable,Bullish,-0.67,Low
+2025-12-10,Diesel,Decreasing,Bullish,0.6,Normal
+2025-12-17,Diesel,Decreasing,Bearish,-0.91,High
+2025-12-24,Diesel,Stable,Neutral,-0.32,Normal
+2025-12-31,Diesel,Stable,Bearish,0.29,Low
+2026-01-07,Diesel,Increasing,Neutral,0.18,High
+2026-01-14,Diesel,Stable,Neutral,-0.23,Low
+2026-01-21,Diesel,Decreasing,Neutral,-0.59,Normal
+2026-01-28,Diesel,Decreasing,Neutral,-0.88,Low
+2026-02-04,Diesel,Increasing,Neutral,-0.76,High
+2026-02-11,Diesel,Increasing,Bearish,0.46,Normal
+2026-02-18,Diesel,Decreasing,Bullish,-0.8,Normal
+2026-02-25,Diesel,Increasing,Bearish,-0.32,Low
+2026-03-04,Diesel,Decreasing,Neutral,-0.21,High
+2026-03-11,Diesel,Stable,Neutral,0.17,Low
+2026-03-18,Diesel,Decreasing,Neutral,-0.45,Low
+2026-03-25,Diesel,Stable,Bullish,0.52,Normal
+2026-04-01,Diesel,Increasing,Neutral,-0.45,Normal
+2026-04-08,Diesel,Increasing,Neutral,0.01,Low
+2025-04-09,Gasoline,Decreasing,Neutral,-0.15,Normal
+2025-04-16,Gasoline,Decreasing,Bearish,0.23,High
+2025-04-23,Gasoline,Stable,Bullish,-0.36,Normal
+2025-04-30,Gasoline,Decreasing,Neutral,0.7,Normal
+2025-05-07,Gasoline,Increasing,Neutral,0.01,Normal
+2025-05-14,Gasoline,Stable,Bearish,0.28,High
+2025-05-21,Gasoline,Stable,Bullish,-0.96,Normal
+2025-05-28,Gasoline,Stable,Bearish,0.88,Normal
+2025-06-04,Gasoline,Stable,Neutral,-0.8,High
+2025-06-11,Gasoline,Stable,Bullish,0.51,Normal
+2025-06-18,Gasoline,Increasing,Bullish,-0.77,High
+2025-06-25,Gasoline,Decreasing,Neutral,-0.19,Normal
+2025-07-02,Gasoline,Increasing,Bullish,0.45,High
+2025-07-09,Gasoline,Decreasing,Bearish,-0.89,Low
+2025-07-16,Gasoline,Decreasing,Neutral,0.68,Low
+2025-07-23,Gasoline,Increasing,Bearish,-0.75,Normal
+2025-07-30,Gasoline,Increasing,Bearish,-0.48,High
+2025-08-06,Gasoline,Decreasing,Bearish,-0.8,Low
+2025-08-13,Gasoline,Increasing,Bullish,0.51,Normal
+2025-08-20,Gasoline,Decreasing,Bullish,-0.04,High
+2025-08-27,Gasoline,Increasing,Bearish,-0.05,High
+2025-09-03,Gasoline,Stable,Bullish,0.52,Normal
+2025-09-10,Gasoline,Stable,Neutral,0.67,Normal
+2025-09-17,Gasoline,Stable,Neutral,-0.04,Low
+2025-09-24,Gasoline,Increasing,Bearish,0.11,Low
+2025-10-01,Gasoline,Increasing,Neutral,0.41,High
+2025-10-08,Gasoline,Stable,Bearish,0.17,High
+2025-10-15,Gasoline,Stable,Bearish,0.96,High
+2025-10-22,Gasoline,Decreasing,Neutral,-0.32,High
+2025-10-29,Gasoline,Increasing,Bullish,0.78,Low
+2025-11-05,Gasoline,Decreasing,Bullish,0.0,High
+2025-11-12,Gasoline,Increasing,Bearish,0.1,Normal
+2025-11-19,Gasoline,Stable,Bearish,0.57,High
+2025-11-26,Gasoline,Decreasing,Bullish,0.34,High
+2025-12-03,Gasoline,Stable,Neutral,-0.95,High
+2025-12-10,Gasoline,Decreasing,Neutral,-0.49,High
+2025-12-17,Gasoline,Stable,Neutral,-0.41,Normal
+2025-12-24,Gasoline,Increasing,Neutral,0.41,Low
+2025-12-31,Gasoline,Increasing,Bearish,-0.07,Normal
+2026-01-07,Gasoline,Increasing,Bearish,-0.43,High
+2026-01-14,Gasoline,Decreasing,Neutral,0.58,High
+2026-01-21,Gasoline,Increasing,Bearish,0.41,Low
+2026-01-28,Gasoline,Increasing,Bearish,-0.7,Low
+2026-02-04,Gasoline,Stable,Neutral,-0.43,High
+2026-02-11,Gasoline,Stable,Bearish,0.31,Low
+2026-02-18,Gasoline,Decreasing,Neutral,-0.25,Normal
+2026-02-25,Gasoline,Increasing,Bullish,0.06,Low
+2026-03-04,Gasoline,Increasing,Bearish,-0.45,High
+2026-03-11,Gasoline,Decreasing,Bearish,0.07,High
+2026-03-18,Gasoline,Stable,Bearish,-0.97,Normal
+2026-03-25,Gasoline,Increasing,Bearish,0.37,High
+2026-04-01,Gasoline,Stable,Bearish,0.08,High
+2026-04-08,Gasoline,Increasing,Neutral,-0.17,Low
+2025-04-09,Jet Fuel,Increasing,Neutral,-0.11,High
+2025-04-16,Jet Fuel,Decreasing,Neutral,-0.68,High
+2025-04-23,Jet Fuel,Stable,Bearish,-0.59,Normal
+2025-04-30,Jet Fuel,Stable,Neutral,0.57,Low
+2025-05-07,Jet Fuel,Decreasing,Bearish,-0.53,Low
+2025-05-14,Jet Fuel,Decreasing,Bullish,0.06,Low
+2025-05-21,Jet Fuel,Decreasing,Bullish,-0.75,Low
+2025-05-28,Jet Fuel,Decreasing,Neutral,-0.06,High
+2025-06-04,Jet Fuel,Increasing,Bearish,0.11,High
+2025-06-11,Jet Fuel,Decreasing,Neutral,-0.39,Normal
+2025-06-18,Jet Fuel,Stable,Bullish,0.63,High
+2025-06-25,Jet Fuel,Increasing,Bearish,-0.3,High
+2025-07-02,Jet Fuel,Increasing,Bullish,0.5,Low
+2025-07-09,Jet Fuel,Stable,Neutral,-0.94,Normal
+2025-07-16,Jet Fuel,Stable,Neutral,-0.46,High
+2025-07-23,Jet Fuel,Decreasing,Neutral,0.77,Normal
+2025-07-30,Jet Fuel,Increasing,Bearish,0.76,Normal
+2025-08-06,Jet Fuel,Increasing,Neutral,0.21,High
+2025-08-13,Jet Fuel,Decreasing,Neutral,0.65,Normal
+2025-08-20,Jet Fuel,Stable,Bearish,0.82,Low
+2025-08-27,Jet Fuel,Stable,Neutral,-0.59,Low
+2025-09-03,Jet Fuel,Stable,Bearish,0.76,Low
+2025-09-10,Jet Fuel,Increasing,Bearish,0.34,Normal
+2025-09-17,Jet Fuel,Increasing,Bullish,-0.25,Normal
+2025-09-24,Jet Fuel,Increasing,Bullish,-0.96,Low
+2025-10-01,Jet Fuel,Increasing,Bullish,0.65,Normal
+2025-10-08,Jet Fuel,Decreasing,Neutral,0.92,Normal
+2025-10-15,Jet Fuel,Decreasing,Bearish,0.85,High
+2025-10-22,Jet Fuel,Decreasing,Bullish,0.32,High
+2025-10-29,Jet Fuel,Decreasing,Neutral,0.47,High
+2025-11-05,Jet Fuel,Decreasing,Bullish,0.41,Normal
+2025-11-12,Jet Fuel,Increasing,Neutral,0.27,High
+2025-11-19,Jet Fuel,Stable,Bullish,0.56,Low
+2025-11-26,Jet Fuel,Decreasing,Bullish,0.77,High
+2025-12-03,Jet Fuel,Decreasing,Bullish,0.49,Normal
+2025-12-10,Jet Fuel,Decreasing,Neutral,0.36,Low
+2025-12-17,Jet Fuel,Decreasing,Bullish,-0.7,Normal
+2025-12-24,Jet Fuel,Decreasing,Bullish,-0.95,High
+2025-12-31,Jet Fuel,Increasing,Bullish,-0.98,Normal
+2026-01-07,Jet Fuel,Stable,Bearish,0.53,High
+2026-01-14,Jet Fuel,Stable,Neutral,-0.39,Low
+2026-01-21,Jet Fuel,Decreasing,Bearish,0.35,Low
+2026-01-28,Jet Fuel,Stable,Neutral,-0.21,Normal
+2026-02-04,Jet Fuel,Stable,Neutral,0.8,Normal
+2026-02-11,Jet Fuel,Stable,Bearish,-0.36,Normal
+2026-02-18,Jet Fuel,Decreasing,Bullish,0.06,Normal
+2026-02-25,Jet Fuel,Stable,Bearish,0.03,Normal
+2026-03-04,Jet Fuel,Stable,Bullish,0.66,Low
+2026-03-11,Jet Fuel,Decreasing,Bullish,0.73,Normal
+2026-03-18,Jet Fuel,Increasing,Neutral,0.64,Low
+2026-03-25,Jet Fuel,Stable,Bearish,0.07,Normal
+2026-04-01,Jet Fuel,Decreasing,Bearish,0.31,Low
+2026-04-08,Jet Fuel,Increasing,Neutral,-0.75,High
+2025-04-09,Fuel Oil,Stable,Bearish,-0.15,Low
+2025-04-16,Fuel Oil,Decreasing,Neutral,0.16,Normal
+2025-04-23,Fuel Oil,Stable,Bullish,-0.99,High
+2025-04-30,Fuel Oil,Increasing,Bullish,0.46,Normal
+2025-05-07,Fuel Oil,Stable,Bearish,0.64,Normal
+2025-05-14,Fuel Oil,Increasing,Neutral,1.0,Normal
+2025-05-21,Fuel Oil,Decreasing,Bearish,0.32,Low
+2025-05-28,Fuel Oil,Stable,Bearish,-0.41,High
+2025-06-04,Fuel Oil,Increasing,Neutral,-0.16,High
+2025-06-11,Fuel Oil,Increasing,Bearish,-0.15,High
+2025-06-18,Fuel Oil,Stable,Bullish,0.78,Normal
+2025-06-25,Fuel Oil,Stable,Bullish,-0.92,High
+2025-07-02,Fuel Oil,Increasing,Bullish,0.19,Normal
+2025-07-09,Fuel Oil,Increasing,Bearish,-0.98,Low
+2025-07-16,Fuel Oil,Decreasing,Bullish,0.65,Normal
+2025-07-23,Fuel Oil,Decreasing,Neutral,-0.04,High
+2025-07-30,Fuel Oil,Increasing,Neutral,0.42,Low
+2025-08-06,Fuel Oil,Decreasing,Bearish,-0.98,Low
+2025-08-13,Fuel Oil,Decreasing,Neutral,-0.16,Normal
+2025-08-20,Fuel Oil,Increasing,Bearish,-0.75,Normal
+2025-08-27,Fuel Oil,Decreasing,Neutral,-0.85,Normal
+2025-09-03,Fuel Oil,Increasing,Bullish,0.98,Normal
+2025-09-10,Fuel Oil,Stable,Bullish,0.93,Low
+2025-09-17,Fuel Oil,Increasing,Neutral,0.66,High
+2025-09-24,Fuel Oil,Stable,Bearish,0.95,High
+2025-10-01,Fuel Oil,Decreasing,Bullish,0.47,Low
+2025-10-08,Fuel Oil,Decreasing,Bearish,-0.07,High
+2025-10-15,Fuel Oil,Increasing,Bearish,0.17,High
+2025-10-22,Fuel Oil,Stable,Bullish,-0.49,Low
+2025-10-29,Fuel Oil,Decreasing,Bearish,0.03,High
+2025-11-05,Fuel Oil,Decreasing,Bearish,-0.9,High
+2025-11-12,Fuel Oil,Increasing,Neutral,-0.17,Normal
+2025-11-19,Fuel Oil,Increasing,Neutral,-0.18,Low
+2025-11-26,Fuel Oil,Stable,Bearish,0.85,Normal
+2025-12-03,Fuel Oil,Decreasing,Bullish,-0.4,High
+2025-12-10,Fuel Oil,Increasing,Bullish,0.36,High
+2025-12-17,Fuel Oil,Increasing,Neutral,0.59,High
+2025-12-24,Fuel Oil,Stable,Bearish,-0.93,Low
+2025-12-31,Fuel Oil,Decreasing,Bullish,0.92,Normal
+2026-01-07,Fuel Oil,Increasing,Bullish,0.98,Low
+2026-01-14,Fuel Oil,Stable,Bearish,-0.29,High
+2026-01-21,Fuel Oil,Decreasing,Neutral,0.9,High
+2026-01-28,Fuel Oil,Stable,Bearish,-0.04,High
+2026-02-04,Fuel Oil,Stable,Bearish,-0.04,Low
+2026-02-11,Fuel Oil,Decreasing,Bullish,0.56,High
+2026-02-18,Fuel Oil,Stable,Bearish,-1.0,Normal
+2026-02-25,Fuel Oil,Decreasing,Neutral,-0.24,Normal
+2026-03-04,Fuel Oil,Increasing,Neutral,0.11,Low
+2026-03-11,Fuel Oil,Increasing,Neutral,0.02,Normal
+2026-03-18,Fuel Oil,Increasing,Bullish,-0.69,High
+2026-03-25,Fuel Oil,Stable,Bearish,0.36,Normal
+2026-04-01,Fuel Oil,Stable,Bullish,-0.44,Normal
+2026-04-08,Fuel Oil,Stable,Bearish,-0.09,High
+2025-04-09,Naphtha,Stable,Neutral,0.74,Low
+2025-04-16,Naphtha,Stable,Bearish,0.05,Low
+2025-04-23,Naphtha,Decreasing,Bullish,0.65,High
+2025-04-30,Naphtha,Increasing,Neutral,-0.34,High
+2025-05-07,Naphtha,Stable,Neutral,-0.5,Low
+2025-05-14,Naphtha,Stable,Bearish,0.27,Normal
+2025-05-21,Naphtha,Increasing,Bearish,-0.95,Normal
+2025-05-28,Naphtha,Increasing,Bullish,-0.64,Low
+2025-06-04,Naphtha,Stable,Neutral,0.41,High
+2025-06-11,Naphtha,Increasing,Bullish,0.96,High
+2025-06-18,Naphtha,Stable,Bearish,-0.91,Normal
+2025-06-25,Naphtha,Stable,Bearish,-0.89,High
+2025-07-02,Naphtha,Decreasing,Neutral,0.48,Low
+2025-07-09,Naphtha,Stable,Neutral,0.95,Normal
+2025-07-16,Naphtha,Increasing,Bullish,0.85,Normal
+2025-07-23,Naphtha,Decreasing,Neutral,0.48,High
+2025-07-30,Naphtha,Decreasing,Neutral,0.14,High
+2025-08-06,Naphtha,Increasing,Bullish,0.07,Normal
+2025-08-13,Naphtha,Decreasing,Neutral,0.48,High
+2025-08-20,Naphtha,Stable,Bearish,-0.4,Normal
+2025-08-27,Naphtha,Stable,Bullish,0.29,Low
+2025-09-03,Naphtha,Decreasing,Bullish,-0.76,Low
+2025-09-10,Naphtha,Decreasing,Neutral,-0.77,High
+2025-09-17,Naphtha,Decreasing,Neutral,-0.0,High
+2025-09-24,Naphtha,Decreasing,Bearish,0.14,High
+2025-10-01,Naphtha,Stable,Bullish,0.51,Low
+2025-10-08,Naphtha,Decreasing,Bearish,0.65,High
+2025-10-15,Naphtha,Decreasing,Bullish,0.48,High
+2025-10-22,Naphtha,Stable,Bearish,-0.75,Normal
+2025-10-29,Naphtha,Decreasing,Bullish,-0.43,Normal
+2025-11-05,Naphtha,Decreasing,Bearish,-0.74,Low
+2025-11-12,Naphtha,Decreasing,Bullish,0.84,High
+2025-11-19,Naphtha,Increasing,Bullish,0.54,High
+2025-11-26,Naphtha,Increasing,Bearish,0.63,Low
+2025-12-03,Naphtha,Increasing,Bullish,0.0,Normal
+2025-12-10,Naphtha,Decreasing,Neutral,0.03,High
+2025-12-17,Naphtha,Increasing,Neutral,-0.14,High
+2025-12-24,Naphtha,Decreasing,Bullish,0.47,High
+2025-12-31,Naphtha,Stable,Neutral,-0.81,Normal
+2026-01-07,Naphtha,Decreasing,Bullish,-0.81,Normal
+2026-01-14,Naphtha,Increasing,Neutral,-0.2,High
+2026-01-21,Naphtha,Increasing,Bearish,0.24,Normal
+2026-01-28,Naphtha,Decreasing,Bullish,0.79,High
+2026-02-04,Naphtha,Increasing,Bearish,0.05,High
+2026-02-11,Naphtha,Decreasing,Neutral,-0.17,High
+2026-02-18,Naphtha,Increasing,Bearish,-0.34,Normal
+2026-02-25,Naphtha,Decreasing,Bullish,0.83,Low
+2026-03-04,Naphtha,Increasing,Bearish,-0.3,High
+2026-03-11,Naphtha,Stable,Neutral,-0.62,Normal
+2026-03-18,Naphtha,Stable,Neutral,0.56,Normal
+2026-03-25,Naphtha,Stable,Bearish,-0.38,Normal
+2026-04-01,Naphtha,Increasing,Bearish,0.27,Normal
+2026-04-08,Naphtha,Increasing,Bearish,0.82,Low
