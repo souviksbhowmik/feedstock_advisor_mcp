@@ -47,6 +47,97 @@ Press `Ctrl+C` to stop.
 
 ---
 
+## Exposing the Server via ngrok
+
+The server supports two transports:
+
+| Transport | Entry-point | Use case |
+|---|---|---|
+| **stdio** | `server.py` | Local MCP clients (Bob, Claude Desktop) |
+| **HTTP** | `server_http.py` | Remote clients, ngrok tunnels, custom integrations |
+
+### Step 1 — Install ngrok
+
+1. Download from <https://ngrok.com/download> (Windows ZIP), extract `ngrok.exe` to a folder on `PATH` (e.g. `C:\Windows\System32\`).
+2. Sign up free at <https://dashboard.ngrok.com> and copy your authtoken.
+3. Authenticate once:
+   ```powershell
+   ngrok config add-authtoken <YOUR_NGROK_TOKEN>
+   ```
+
+### Step 2 — Start with the launcher script (recommended)
+
+```powershell
+conda activate feedstock_advisor
+.\start_ngrok.ps1              # uses port 8000 by default
+.\start_ngrok.ps1 -Port 9000  # custom port
+```
+
+The script will:
+1. Start `server_http.py` in a new terminal window.
+2. Wait for the server to accept connections.
+3. Open an ngrok tunnel and print the public URLs.
+
+Example output:
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Feedstock Advisor MCP — Public Endpoints
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Streamable HTTP (preferred, MCP 2025-03):
+    https://abc123.ngrok-free.app/mcp
+
+  Legacy SSE (for older MCP clients):
+    https://abc123.ngrok-free.app/sse
+
+  ngrok dashboard : http://127.0.0.1:4040
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+### Step 3 — Start manually (alternative)
+
+Terminal 1 — MCP HTTP server:
+```powershell
+conda activate feedstock_advisor
+python server_http.py
+# or on a custom port:
+$env:MCP_PORT="9000"; python server_http.py
+```
+
+Terminal 2 — ngrok tunnel:
+```powershell
+ngrok http 8000
+```
+
+### Step 4 — Connect a remote MCP client
+
+Use the public ngrok URL printed by ngrok.
+
+**Streamable HTTP** (MCP spec 2025-03-26, preferred):
+```
+https://<id>.ngrok-free.app/mcp
+```
+
+**Legacy SSE** (for clients that haven't upgraded):
+```
+https://<id>.ngrok-free.app/sse
+```
+
+Example Claude Desktop `claude_desktop_config.json`:
+```json
+{
+  "mcpServers": {
+    "feedstock-advisor": {
+      "url": "https://<id>.ngrok-free.app/mcp"
+    }
+  }
+}
+```
+
+> **Note:** The free ngrok plan assigns a random URL each session.
+> Upgrade to a paid plan for a stable subdomain (`https://feedstock.ngrok.app/mcp`).
+
+---
+
 ## Project Structure
 
 ```
@@ -54,7 +145,9 @@ feedstock_advisor_mcp/
 ├── environment.yml              # Conda environment (Python 3.11 + all deps)
 ├── README.md                    # This file
 ├── PLAN_AND_REQUIREMENTS.md     # Full design and requirements document
-├── server.py                    # MCP server entry-point (registers all 15 tools)
+├── server.py                    # MCP server — stdio transport (local clients)
+├── server_http.py               # MCP server — HTTP transport (ngrok / remote)
+├── start_ngrok.ps1              # PowerShell launcher: server + ngrok tunnel
 ├── config.py                    # Paths, env-var hooks, product prices, defaults
 │
 ├── data/                        # Bundled dummy CSV data (18 files, read-only)
@@ -63,6 +156,9 @@ feedstock_advisor_mcp/
 │   ├── __init__.py              # Backend selector (csv / db / api via DATA_BACKEND)
 │   ├── base.py                  # Abstract provider ABCs (7 provider classes)
 │   └── csv_provider.py          # CsvDataStore — pandas implementation
+│
+├── tests/
+│   └── test_tools.py            # pytest suite — 62 tests across all 15 tools
 │
 └── tools/
     ├── helpers.py               # 7 helper/discovery tools
@@ -228,13 +324,24 @@ get_high_yield_crudes_tool("2026-08-01", "REF_001", product="diesel", max_sulfur
 
 ---
 
+## Testing
+
+```powershell
+conda activate feedstock_advisor
+pytest tests/test_tools.py -v
+```
+
+62 tests covering all 15 tools — helpers, forecasting, blending, and all 6 analysis tools.
+
+---
+
 ## Development
 
 ```bash
 # Activate environment
 conda activate feedstock_advisor
 
-# Run all phase tests (example — Phase 3 helpers)
+# Quick smoke-test a single tool
 python -c "
 import sys; sys.path.insert(0, '.')
 from data_access import DataStore
