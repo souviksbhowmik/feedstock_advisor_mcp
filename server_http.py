@@ -90,6 +90,29 @@ _HOST: str = os.environ.get("MCP_HOST", "127.0.0.1")
 _PORT: int = int(os.environ.get("MCP_PORT", "8000"))
 
 # ---------------------------------------------------------------------------
+# Transport security — allowed hosts
+# ---------------------------------------------------------------------------
+# By default only localhost is trusted (DNS-rebinding protection).
+# Set MCP_ALLOWED_HOSTS to a comma-separated list of extra hosts to allow,
+# e.g. the current ngrok subdomain:
+#   $env:MCP_ALLOWED_HOSTS = "backward-steadier-clear.ngrok-free.dev"
+#   $env:MCP_ALLOWED_HOSTS = "*"   ← disables host checking entirely
+#
+# The wildcard "*" is the easiest option when using ngrok (URL changes every
+# session). It is safe because the server only binds to 127.0.0.1 and ngrok
+# is the only thing that can reach it from outside.
+
+from mcp.server.transport_security import TransportSecuritySettings  # noqa: E402
+
+_raw_hosts: str = os.environ.get("MCP_ALLOWED_HOSTS", "*")
+_allowed_hosts: list[str] = [h.strip() for h in _raw_hosts.split(",") if h.strip()]
+
+_transport_security = TransportSecuritySettings(
+    enable_dns_rebinding_protection=("*" not in _allowed_hosts),
+    allowed_hosts=_allowed_hosts if "*" not in _allowed_hosts else [],
+)
+
+# ---------------------------------------------------------------------------
 # MCP server instance — HTTP transport
 # ---------------------------------------------------------------------------
 mcp = FastMCP(
@@ -109,6 +132,7 @@ mcp = FastMCP(
     # Legacy SSE endpoints (for clients that haven't upgraded)
     sse_path="/sse",
     message_path="/messages/",
+    transport_security=_transport_security,
 )
 
 # ===========================================================================
