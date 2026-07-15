@@ -623,12 +623,50 @@ def get_market_context_tool(
 
 
 # ===========================================================================
+# HEAD-probe middleware
+# ===========================================================================
+# watsonx (and other API gateways) send a HEAD request to validate the endpoint
+# before registering it.  FastMCP/Starlette returns 405 on HEAD, which causes
+# the gateway to report a 502.  This thin ASGI wrapper intercepts HEAD requests
+# to /mcp and /sse and replies 200 OK so the health-check passes.
+
+class HeadProbeMiddleware:
+    """Return 200 OK for HEAD requests to MCP paths (gateway health checks)."""
+
+    def __init__(self, app):
+        self.app = app
+
+    async def __call__(self, scope, receive, send):
+        if scope["type"] == "http" and scope["method"] == "HEAD":
+            path = scope.get("path", "")
+            if path in ("/mcp", "/sse", "/messages/"):
+                await send({
+                    "type": "http.response.start",
+                    "status": 200,
+                    "headers": [
+                        (b"content-length", b"0"),
+                        (b"content-type", b"application/json"),
+                        (b"x-mcp-server", b"feedstock-advisor"),
+                    ],
+                })
+                await send({"type": "http.response.body", "body": b""})
+                return
+        await self.app(scope, receive, send)
+
+
+# ===========================================================================
 # Entry-point
 # ===========================================================================
 
 if __name__ == "__main__":
+    import uvicorn
+
     logger.info("Starting Feedstock Advisor MCP server (HTTP transport)…")
     logger.info("  Streamable HTTP : http://%s:%d/mcp", _HOST, _PORT)
     logger.info("  Legacy SSE      : http://%s:%d/sse", _HOST, _PORT)
     logger.info("Press Ctrl+C to stop.")
-    mcp.run(transport="streamable-http")
+
+    # Build the ASGI app from FastMCP, wrap it with the HEAD middleware, then
+    # hand it directly to uvicorn so we keep full control over the app stack.
+    asgi_app = HeadProbeMiddleware(mcp.streamable_http_app())
+    uvicorn.run(asgi_app, host=_HOST, port=_PORT)
