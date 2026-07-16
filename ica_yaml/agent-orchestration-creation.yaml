@@ -1,0 +1,515 @@
+api-version: aiis.ibm.com/v1alpha1
+kind: agent-orchestration
+metadata:
+  name: smart-feedstock-assistant
+  version: "v1"
+  owner: "user@example.com"
+  platform: "ica"
+  framework: "strands"
+
+spec:
+  description: "Single-agent feedstock advisory assistant for crude oil trading, refinery optimization, blend simulation, market analysis, and profitability forecasting using real-time MCP tools."
+
+  orchestration:
+    type: "single"
+
+  models:
+    - name: "gpt-5-1"
+      provider: "ica"
+      model-id: "gpt-5.1"
+      config:
+        temperature: 0.2
+        max-tokens: 4000
+
+  a2a_skills:
+    - id: "crude-market-analysis"
+      name: "Crude Market Analysis"
+      description: "Analyze crude oil market trends, pricing forecasts, and refinery feedstock opportunities using real refinery and crude datasets."
+      tags:
+        - "crude-oil"
+        - "market-analysis"
+        - "forecasting"
+        - "refinery"
+      examples:
+        - "Forecast Brent crude prices for the next 3 months"
+        - "Compare diesel yield opportunities across available crudes"
+      input_modes:
+        - "text/plain"
+      output_modes:
+        - "text/plain"
+        - "application/json"
+
+    - id: "blend-optimization"
+      name: "Blend Optimization"
+      description: "Optimize crude blending strategies for yield, sulfur constraints, and refinery profitability."
+      tags:
+        - "blending"
+        - "optimization"
+        - "profitability"
+        - "diesel-yield"
+      examples:
+        - "Optimize a blend to maximize diesel yield under 1.5% sulfur"
+        - "Simulate Brent and WTI blending economics"
+      input_modes:
+        - "text/plain"
+        - "application/json"
+      output_modes:
+        - "text/plain"
+        - "application/json"
+
+    - id: "refinery-decision-support"
+      name: "Refinery Decision Support"
+      description: "Support refinery procurement and operational decisions using yield forecasts, market context, and profitability calculations."
+      tags:
+        - "refinery"
+        - "decision-support"
+        - "yield-analysis"
+        - "economics"
+      examples:
+        - "Which refinery feedstock mix gives the highest margin?"
+        - "Evaluate profitability for processing Dubai crude next month"
+      input_modes:
+        - "text/plain"
+      output_modes:
+        - "text/plain"
+        - "application/json"
+
+  tools:
+    - name: "list-available-refineries"
+      type: "mcp"
+      tool-id: "feedstock-advisor-list-available-refineries-tool"
+      description: "Get all available refinery records and refinery IDs."
+      config:
+        parameters:
+          type: "object"
+          properties: {}
+          title: "list_available_refineries_toolArguments"
+
+    - name: "blend-simulator"
+      type: "mcp"
+      tool-id: "feedstock-advisor-blend-simulator-tool-mcp"
+      description: "Simulate crude blending and estimate refinery product yields."
+      config:
+        parameters:
+          type: "object"
+          properties:
+            crude_names:
+              items:
+                type: "string"
+              title: "Crude Names"
+              type: "array"
+            proportions:
+              items:
+                type: "number"
+              title: "Proportions"
+              type: "array"
+            refinery_id:
+              anyOf:
+                - type: "string"
+                - type: "null"
+              default: null
+              title: "Refinery Id"
+          required:
+            - "crude_names"
+            - "proportions"
+          title: "blend_simulator_tool_mcpArguments"
+
+    - name: "high-yield-crudes"
+      type: "mcp"
+      tool-id: "feedstock-advisor-get-high-yield-crudes-tool"
+      description: "Rank crude oils by forecasted product yield."
+      config:
+        parameters:
+          type: "object"
+          properties:
+            target_month:
+              title: "Target Month"
+              type: "string"
+            refinery_id:
+              title: "Refinery Id"
+              type: "string"
+            product:
+              default: "diesel"
+              title: "Product"
+              type: "string"
+            max_sulfur:
+              default: 1.5
+              title: "Max Sulfur"
+              type: "number"
+            top_n:
+              default: 5
+              title: "Top N"
+              type: "integer"
+          required:
+            - "target_month"
+            - "refinery_id"
+          title: "get_high_yield_crudes_toolArguments"
+
+    - name: "get-refinery-id"
+      type: "mcp"
+      tool-id: "feedstock-advisor-get-refinery-id-tool"
+      description: "Resolve exact refinery names to refinery IDs."
+      config:
+        parameters:
+          type: "object"
+          properties:
+            refinery_name:
+              title: "Refinery Name"
+              type: "string"
+          required:
+            - "refinery_name"
+          title: "get_refinery_id_toolArguments"
+
+    - name: "find-matching-refinery"
+      type: "mcp"
+      tool-id: "feedstock-advisor-find-matching-refinery-tool"
+      description: "Fuzzy match refinery names and locations."
+      config:
+        parameters:
+          type: "object"
+          properties:
+            refinery_name:
+              title: "Refinery Name"
+              type: "string"
+            threshold:
+              default: 0.6
+              title: "Threshold"
+              type: "number"
+          required:
+            - "refinery_name"
+          title: "find_matching_refinery_toolArguments"
+
+    - name: "find-matching-crude"
+      type: "mcp"
+      tool-id: "feedstock-advisor-find-matching-crude-tool"
+      description: "Resolve crude oil names using fuzzy matching."
+      config:
+        parameters:
+          type: "object"
+          properties:
+            crude_name:
+              title: "Crude Name"
+              type: "string"
+            threshold:
+              default: 0.6
+              title: "Threshold"
+              type: "number"
+          required:
+            - "crude_name"
+          title: "find_matching_crude_toolArguments"
+
+    - name: "find-matching-property"
+      type: "mcp"
+      tool-id: "feedstock-advisor-find-matching-property-tool"
+      description: "Resolve crude properties and yield metric names."
+      config:
+        parameters:
+          type: "object"
+          properties:
+            property_name:
+              title: "Property Name"
+              type: "string"
+            category:
+              default: "both"
+              title: "Category"
+              type: "string"
+            threshold:
+              default: 0.6
+              title: "Threshold"
+              type: "number"
+          required:
+            - "property_name"
+          title: "find_matching_property_toolArguments"
+
+    - name: "list-available-crudes"
+      type: "mcp"
+      tool-id: "feedstock-advisor-list-available-crudes-tool"
+      description: "List all available crude oils."
+      config:
+        parameters:
+          type: "object"
+          properties: {}
+          title: "list_available_crudes_toolArguments"
+
+    - name: "forecast-tool"
+      type: "mcp"
+      tool-id: "feedstock-advisor-forecast-tool-mcp"
+      description: "Forecast crude pricing, properties, and refinery yields."
+      config:
+        parameters:
+          type: "object"
+          properties:
+            crude_name:
+              title: "Crude Name"
+              type: "string"
+            target_date:
+              title: "Target Date"
+              type: "string"
+            metric:
+              default: "price"
+              title: "Metric"
+              type: "string"
+            refinery_id:
+              anyOf:
+                - type: "string"
+                - type: "null"
+              default: null
+              title: "Refinery Id"
+          required:
+            - "crude_name"
+            - "target_date"
+          title: "forecast_tool_mcpArguments"
+
+    - name: "profitability-calculator"
+      type: "mcp"
+      tool-id: "feedstock-advisor-profitability-calculator-tool-mcp"
+      description: "Calculate refinery gross profitability for crude blends."
+      config:
+        parameters:
+          type: "object"
+          properties:
+            crude_names:
+              items:
+                type: "string"
+              title: "Crude Names"
+              type: "array"
+            proportions:
+              items:
+                type: "number"
+              title: "Proportions"
+              type: "array"
+            volume:
+              title: "Volume"
+              type: "number"
+            refinery_id:
+              title: "Refinery Id"
+              type: "string"
+            target_date:
+              anyOf:
+                - type: "string"
+                - type: "null"
+              default: null
+              title: "Target Date"
+          required:
+            - "crude_names"
+            - "proportions"
+            - "volume"
+            - "refinery_id"
+          title: "profitability_calculator_tool_mcpArguments"
+
+    - name: "list-properties-and-yields"
+      type: "mcp"
+      tool-id: "feedstock-advisor-list-properties-and-yields-tool"
+      description: "List canonical crude properties and refinery yield metrics."
+      config:
+        parameters:
+          type: "object"
+          properties: {}
+          title: "list_properties_and_yields_toolArguments"
+
+    - name: "constraint-checker"
+      type: "mcp"
+      tool-id: "feedstock-advisor-constraint-checker-tool-mcp"
+      description: "Validate blend constraints and specification compliance."
+      config:
+        parameters:
+          type: "object"
+          properties:
+            crude_names:
+              items:
+                type: "string"
+              title: "Crude Names"
+              type: "array"
+            proportions:
+              items:
+                type: "number"
+              title: "Proportions"
+              type: "array"
+            constraints:
+              additionalProperties: true
+              title: "Constraints"
+              type: "object"
+          required:
+            - "crude_names"
+            - "proportions"
+            - "constraints"
+          title: "constraint_checker_tool_mcpArguments"
+
+    - name: "optimizer-tool"
+      type: "mcp"
+      tool-id: "feedstock-advisor-optimizer-tool-mcp"
+      description: "Optimize crude blends using linear programming."
+      config:
+        parameters:
+          type: "object"
+          properties:
+            objective:
+              title: "Objective"
+              type: "string"
+            target_product:
+              default: "diesel"
+              title: "Target Product"
+              type: "string"
+            constraints:
+              anyOf:
+                - additionalProperties: true
+                  type: "object"
+                - type: "null"
+              default: null
+              title: "Constraints"
+            available_crudes:
+              anyOf:
+                - items:
+                    type: "string"
+                  type: "array"
+                - type: "null"
+              default: null
+              title: "Available Crudes"
+            refinery_id:
+              anyOf:
+                - type: "string"
+                - type: "null"
+              default: null
+              title: "Refinery Id"
+            target_date:
+              anyOf:
+                - type: "string"
+                - type: "null"
+              default: null
+              title: "Target Date"
+          required:
+            - "objective"
+          title: "optimizer_tool_mcpArguments"
+
+    - name: "market-context"
+      type: "mcp"
+      tool-id: "feedstock-advisor-get-market-context-tool"
+      description: "Retrieve refined product market trends and recommendation signals."
+      config:
+        parameters:
+          type: "object"
+          properties:
+            product_type:
+              title: "Product Type"
+              type: "string"
+            from_date:
+              title: "From Date"
+              type: "string"
+            to_date:
+              title: "To Date"
+              type: "string"
+            crude_name:
+              anyOf:
+                - type: "string"
+                - type: "null"
+              default: null
+              title: "Crude Name"
+          required:
+            - "product_type"
+            - "from_date"
+            - "to_date"
+          title: "get_market_context_toolArguments"
+
+  agents:
+    - name: "feedstock-trading-advisor"
+      type: "supervisor"
+      role: "Smart Feedstock Trading and Refinery Optimization Assistant"
+      goal: "Provide accurate refinery feedstock analysis, crude forecasting, blend optimization, and profitability recommendations using real MCP tool data only."
+      instructions: |
+        Purpose:
+          You are a Smart Feedstock Assistant specialized in crude oil trading, blending, refinery optimization, and profitability analysis.
+
+        Inputs:
+          User questions related to:
+          - Crude oil pricing and forecasting
+          - Refinery feedstock selection
+          - Blend optimization
+          - Sulfur and API constraints
+          - Product yield analysis
+          - Refinery profitability
+          - Market context and recommendation signals
+
+        Step-by-step process:
+          1. Analyze the user request carefully.
+          2. Determine what data is required.
+          3. If crude names, refinery names, or property names may be ambiguous:
+             - Use find-matching-crude
+             - Use find-matching-refinery
+             - Use find-matching-property
+          4. If the user asks about available options:
+             - Use list-available-crudes
+             - Use list-available-refineries
+             - Use list-properties-and-yields
+          5. Call tools sequentially, one tool call at a time.
+          6. Wait for each tool result before deciding the next action.
+          7. For multi-period forecasting requests:
+             - Call forecast-tool once per target date.
+             - Never assume a multi-period response from a single tool invocation.
+          8. Use optimization, blending, profitability, and market tools as needed.
+          9. Synthesize all tool outputs into a complete and professional answer.
+
+        Tool-use rules:
+          - You MUST use tools for factual answers.
+          - Never fabricate prices, yields, refinery IDs, or profitability values.
+          - Tool outputs are the source of truth.
+          - If tool outputs conflict with prior knowledge, trust the tool outputs.
+          - If tool results are insufficient, clearly state the limitation.
+
+        Tool invocation format:
+          {
+            "tool": "<tool_name>",
+            "tool_parameters": {
+              "<parameter_name>": "<value>"
+            }
+          }
+
+        Example:
+          {
+            "tool": "forecast-tool",
+            "tool_parameters": {
+              "crude_name": "Brent",
+              "target_date": "2026-08-01",
+              "metric": "price"
+            }
+          }
+
+        Constraints:
+          - NEVER make up data.
+          - NEVER answer from memory when tools can provide the answer.
+          - ALWAYS validate uncertain names first.
+          - ALWAYS perform sequential tool calls.
+          - ALWAYS use real tool outputs in final responses.
+          - NEVER skip required refinery_id parameters when yield calculations require them.
+
+        Output format:
+          - Provide a concise but complete explanation.
+          - Include relevant calculations, comparisons, and recommendations.
+          - Include a "Tool Trace" section whenever tools are used.
+
+        Failure handling:
+          - If a tool returns insufficient data, report the limitation explicitly.
+          - If a refinery or crude cannot be resolved confidently, ask for clarification.
+          - If optimization constraints are infeasible, explain which constraint failed.
+
+        Success criteria:
+          - Accurate use of real tool data
+          - Proper sequential tool orchestration
+          - Correct handling of forecasts across multiple dates
+          - Clear refinery economics analysis
+          - Reliable blend and yield recommendations
+      model: "gpt-5-1"
+      tools:
+        - "list-available-refineries"
+        - "blend-simulator"
+        - "high-yield-crudes"
+        - "get-refinery-id"
+        - "find-matching-refinery"
+        - "find-matching-crude"
+        - "find-matching-property"
+        - "list-available-crudes"
+        - "forecast-tool"
+        - "profitability-calculator"
+        - "list-properties-and-yields"
+        - "constraint-checker"
+        - "optimizer-tool"
+        - "market-context"

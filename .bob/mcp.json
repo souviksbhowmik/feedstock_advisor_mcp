@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "feedstock-advisor": {
+      "command": "C:\\Users\\00586O744\\anaconda3\\envs\\feedstock_advisor\\python.exe",
+      "args": [
+        "C:\\Users\\00586O744\\Desktop\\feedstock_advisor_MCP\\feedstock_advisor_mcp\\server.py"
+      ],
+      "env": {
+        "DATA_BACKEND": "csv",
+        "LOG_LEVEL": "INFO"
+      },
+      "timeout": 30000,
+      "disabled": false,
+      "alwaysAllow": []
+    }
+  }
+}

@@ -1,0 +1,14 @@
+name: feedstock_advisor
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - pandas=2.2
+  - numpy=1.26
+  - scipy=1.13
+  - pip
+  - pip:
+    - mcp[cli]>=1.6
+    - pydantic>=2.7
+    - rapidfuzz>=3.9
