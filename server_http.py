@@ -15,21 +15,36 @@ Transports exposed
 
 Configuration (environment variables)
 --------------------------------------
-  MCP_HOST   bind address  (default: 127.0.0.1)
-  MCP_PORT   listen port   (default: 8000)
-  DATA_BACKEND              (default: csv)
-  LOG_LEVEL                 (default: INFO)
+  MCP_HOST          bind address   (default: 127.0.0.1)
+  MCP_PORT          listen port    (default: 8000)
+  MCP_API_KEY       Bearer token   (default: empty = auth disabled)
+  MCP_ALLOWED_HOSTS allowed hosts  (default: * = all)
+  DATA_BACKEND                     (default: csv)
+  LOG_LEVEL                        (default: INFO)
+
+Authentication
+--------------
+  Set MCP_API_KEY to any secret string (e.g. a UUID).
+  Every request must then include:
+    Authorization: Bearer <your-token>
+
+  When MCP_API_KEY is empty or unset, authentication is disabled
+  (open access — fine for local-only use, not recommended over ngrok).
+
+  Share the same token value with all teammates. They set it once in
+  watsonx's "Bearer Token" auth field when registering the MCP server.
 
 Usage
 -----
   # Activate conda environment first:
   #   conda activate feedstock_advisor
 
-  # Run locally (stdio clients still use server.py):
+  # Run with auth enabled:
+  $env:MCP_API_KEY = "feedstock-secret-2026"
   python server_http.py
 
-  # Override host/port:
-  MCP_HOST=0.0.0.0 MCP_PORT=9000 python server_http.py
+  # Run without auth (local testing only):
+  python server_http.py
 
   # Then in a separate terminal tunnel via ngrok:
   ngrok http 8000
@@ -88,6 +103,21 @@ logger.info("Data store ready.")
 # ---------------------------------------------------------------------------
 _HOST: str = os.environ.get("MCP_HOST", "127.0.0.1")
 _PORT: int = int(os.environ.get("MCP_PORT", "8000"))
+
+# ---------------------------------------------------------------------------
+# Bearer token auth  (set MCP_API_KEY to enable)
+# ---------------------------------------------------------------------------
+# Leave MCP_API_KEY empty/unset to disable auth entirely (local testing).
+# Set it to any hard-to-guess string to require a Bearer token on every call.
+# All teammates use the same token value.
+_API_KEY: str = os.environ.get("MCP_API_KEY", "").strip()
+if _API_KEY:
+    logger.info("Bearer token authentication ENABLED.")
+else:
+    logger.warning(
+        "MCP_API_KEY is not set — server is open to anyone with the URL. "
+        "Set $env:MCP_API_KEY='your-secret' before starting for auth."
+    )
 
 # ---------------------------------------------------------------------------
 # Transport security — allowed hosts
@@ -623,23 +653,82 @@ def get_market_context_tool(
 
 
 # ===========================================================================
-# HEAD-probe middleware
+# Middleware stack
 # ===========================================================================
-# watsonx (and other API gateways) send a HEAD request to validate the endpoint
-# before registering it.  FastMCP/Starlette returns 405 on HEAD, which causes
-# the gateway to report a 502.  This thin ASGI wrapper intercepts HEAD requests
-# to /mcp and /sse and replies 200 OK so the health-check passes.
+
+_MCP_PATHS = {"/mcp", "/sse", "/messages/"}
+_UNAUTH_BODY = b'{"error":"Unauthorized","message":"Missing or invalid Bearer token. Set Authorization: Bearer <token>."}'
+
+
+class BearerAuthMiddleware:
+    """
+    Enforce Bearer token authentication on all MCP paths.
+
+    Skipped entirely when MCP_API_KEY is not set (open-access mode).
+
+    Allows HEAD requests through without auth so gateway health-checks
+    (watsonx, AWS API GW, etc.) can validate the endpoint without needing
+    the token configured on their side.
+    """
+
+    def __init__(self, app, api_key: str):
+        self.app = app
+        self._token = f"Bearer {api_key}"
+
+    async def __call__(self, scope, receive, send):
+        if scope["type"] != "http":
+            await self.app(scope, receive, send)
+            return
+
+        path   = scope.get("path", "")
+        method = scope.get("method", "")
+
+        # HEAD requests are health-checks — allow without auth
+        if method == "HEAD" and path in _MCP_PATHS:
+            await self.app(scope, receive, send)
+            return
+
+        # Non-MCP paths — pass through
+        if path not in _MCP_PATHS:
+            await self.app(scope, receive, send)
+            return
+
+        # Check Authorization header
+        headers = dict(scope.get("headers", []))
+        auth_header = headers.get(b"authorization", b"").decode("utf-8", errors="ignore")
+
+        if auth_header == self._token:
+            await self.app(scope, receive, send)
+            return
+
+        # Reject with 401
+        logger.warning("Rejected unauthorised request to %s from %s",
+                        path, scope.get("client", ("?", 0))[0])
+        await send({
+            "type": "http.response.start",
+            "status": 401,
+            "headers": [
+                (b"content-type", b"application/json"),
+                (b"www-authenticate", b'Bearer realm="feedstock-advisor"'),
+                (b"content-length", str(len(_UNAUTH_BODY)).encode()),
+            ],
+        })
+        await send({"type": "http.response.body", "body": _UNAUTH_BODY})
+
 
 class HeadProbeMiddleware:
-    """Return 200 OK for HEAD requests to MCP paths (gateway health checks)."""
+    """
+    Return 200 OK for HEAD requests to MCP paths (gateway health checks).
+    Sits outside BearerAuthMiddleware so HEAD probes never need auth.
+    """
 
     def __init__(self, app):
         self.app = app
 
     async def __call__(self, scope, receive, send):
-        if scope["type"] == "http" and scope["method"] == "HEAD":
+        if scope["type"] == "http" and scope.get("method") == "HEAD":
             path = scope.get("path", "")
-            if path in ("/mcp", "/sse", "/messages/"):
+            if path in _MCP_PATHS:
                 await send({
                     "type": "http.response.start",
                     "status": 200,
@@ -666,7 +755,11 @@ if __name__ == "__main__":
     logger.info("  Legacy SSE      : http://%s:%d/sse", _HOST, _PORT)
     logger.info("Press Ctrl+C to stop.")
 
-    # Build the ASGI app from FastMCP, wrap it with the HEAD middleware, then
-    # hand it directly to uvicorn so we keep full control over the app stack.
-    asgi_app = HeadProbeMiddleware(mcp.streamable_http_app())
+    # Build middleware stack (outermost → innermost):
+    #   HeadProbeMiddleware  →  BearerAuthMiddleware (if key set)  →  MCP app
+    asgi_app = mcp.streamable_http_app()
+    if _API_KEY:
+        asgi_app = BearerAuthMiddleware(asgi_app, _API_KEY)
+    asgi_app = HeadProbeMiddleware(asgi_app)
+
     uvicorn.run(asgi_app, host=_HOST, port=_PORT)
