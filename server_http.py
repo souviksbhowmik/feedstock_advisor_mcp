@@ -659,16 +659,28 @@ def get_market_context_tool(
 _MCP_PATHS = {"/mcp", "/sse", "/messages/"}
 _UNAUTH_BODY = b'{"error":"Unauthorized","message":"Missing or invalid Bearer token. Set Authorization: Bearer <token>."}'
 
+# Returned for GET /mcp probes — lets ICA "Test Connection" succeed and
+# shows the server identity without starting an MCP session.
+import json as _json
+_PROBE_INFO = _json.dumps({
+    "server": "feedstock-advisor",
+    "version": "1.28.1",
+    "transport": "streamable-http",
+    "endpoint": "/mcp",
+    "tools": 15,
+    "description": (
+        "Feedstock Advisor MCP — 15 tools for crude oil trading, blending, "
+        "yield forecasting, pricing, and profitability."
+    ),
+    "note": "Use POST with Accept: application/json, text/event-stream for MCP protocol calls.",
+}).encode()
+
 
 class BearerAuthMiddleware:
     """
     Enforce Bearer token authentication on all MCP paths.
-
-    Skipped entirely when MCP_API_KEY is not set (open-access mode).
-
-    Allows HEAD requests through without auth so gateway health-checks
-    (watsonx, AWS API GW, etc.) can validate the endpoint without needing
-    the token configured on their side.
+    HEAD and bare GET probes (Accept: */*)  are allowed without auth so
+    gateway health-checks and ICA's "Test Connection" button always pass.
     """
 
     def __init__(self, app, api_key: str):
@@ -680,11 +692,13 @@ class BearerAuthMiddleware:
             await self.app(scope, receive, send)
             return
 
-        path   = scope.get("path", "")
-        method = scope.get("method", "")
+        path    = scope.get("path", "")
+        method  = scope.get("method", "")
+        headers = dict(scope.get("headers", []))
+        accept  = headers.get(b"accept", b"").decode("utf-8", errors="ignore")
 
-        # HEAD requests are health-checks — allow without auth
-        if method == "HEAD" and path in _MCP_PATHS:
+        # HEAD and bare GET probes bypass auth (health-checks / test-connection)
+        if method in ("HEAD", "GET") and path in _MCP_PATHS:
             await self.app(scope, receive, send)
             return
 
@@ -694,9 +708,7 @@ class BearerAuthMiddleware:
             return
 
         # Check Authorization header
-        headers = dict(scope.get("headers", []))
         auth_header = headers.get(b"authorization", b"").decode("utf-8", errors="ignore")
-
         if auth_header == self._token:
             await self.app(scope, receive, send)
             return
@@ -716,30 +728,62 @@ class BearerAuthMiddleware:
         await send({"type": "http.response.body", "body": _UNAUTH_BODY})
 
 
-class HeadProbeMiddleware:
+class GatewayProbeMiddleware:
     """
-    Return 200 OK for HEAD requests to MCP paths (gateway health checks).
-    Sits outside BearerAuthMiddleware so HEAD probes never need auth.
+    Outermost middleware — handles all non-MCP-protocol probes before
+    auth or the MCP app ever sees them:
+
+      HEAD /mcp            → 200 OK, empty body     (AWS/watsonx health-check)
+      GET  /mcp Accept:*/* → 200 OK, server-info JSON (ICA "Test Connection")
+      GET  /mcp with SSE Accept → forward to MCP app (legitimate SSE client)
     """
 
     def __init__(self, app):
         self.app = app
 
     async def __call__(self, scope, receive, send):
-        if scope["type"] == "http" and scope.get("method") == "HEAD":
-            path = scope.get("path", "")
-            if path in _MCP_PATHS:
-                await send({
-                    "type": "http.response.start",
-                    "status": 200,
-                    "headers": [
-                        (b"content-length", b"0"),
-                        (b"content-type", b"application/json"),
-                        (b"x-mcp-server", b"feedstock-advisor"),
-                    ],
-                })
-                await send({"type": "http.response.body", "body": b""})
-                return
+        if scope["type"] != "http":
+            await self.app(scope, receive, send)
+            return
+
+        method  = scope.get("method", "")
+        path    = scope.get("path", "")
+        headers = dict(scope.get("headers", []))
+        accept  = headers.get(b"accept", b"").decode("utf-8", errors="ignore")
+
+        if path not in _MCP_PATHS:
+            await self.app(scope, receive, send)
+            return
+
+        # HEAD → empty 200
+        if method == "HEAD":
+            await send({
+                "type": "http.response.start",
+                "status": 200,
+                "headers": [
+                    (b"content-length", b"0"),
+                    (b"content-type", b"application/json"),
+                    (b"x-mcp-server", b"feedstock-advisor"),
+                ],
+            })
+            await send({"type": "http.response.body", "body": b""})
+            return
+
+        # GET without SSE accept → return friendly JSON (ICA test-connection probe)
+        if method == "GET" and "text/event-stream" not in accept:
+            await send({
+                "type": "http.response.start",
+                "status": 200,
+                "headers": [
+                    (b"content-type", b"application/json"),
+                    (b"content-length", str(len(_PROBE_INFO)).encode()),
+                    (b"x-mcp-server", b"feedstock-advisor"),
+                ],
+            })
+            await send({"type": "http.response.body", "body": _PROBE_INFO})
+            return
+
+        # Everything else (POST, proper GET SSE) → forward
         await self.app(scope, receive, send)
 
 
@@ -755,11 +799,11 @@ if __name__ == "__main__":
     logger.info("  Legacy SSE      : http://%s:%d/sse", _HOST, _PORT)
     logger.info("Press Ctrl+C to stop.")
 
-    # Build middleware stack (outermost → innermost):
-    #   HeadProbeMiddleware  →  BearerAuthMiddleware (if key set)  →  MCP app
+    # Middleware stack (outermost → innermost):
+    #   GatewayProbeMiddleware → BearerAuthMiddleware (if key set) → MCP app
     asgi_app = mcp.streamable_http_app()
     if _API_KEY:
         asgi_app = BearerAuthMiddleware(asgi_app, _API_KEY)
-    asgi_app = HeadProbeMiddleware(asgi_app)
+    asgi_app = GatewayProbeMiddleware(asgi_app)
 
     uvicorn.run(asgi_app, host=_HOST, port=_PORT)
