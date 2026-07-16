@@ -163,6 +163,10 @@ mcp = FastMCP(
     sse_path="/sse",
     message_path="/messages/",
     transport_security=_transport_security,
+    # stateless_http=True means no session handshake is required.
+    # Each POST is handled independently — this lets ICA's "Test Tool"
+    # button work without needing an initialize → session → call flow.
+    stateless_http=True,
 )
 
 # ===========================================================================
