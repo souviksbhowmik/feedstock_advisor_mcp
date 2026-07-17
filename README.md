@@ -187,7 +187,7 @@ which starts both the server and ngrok and prints the URL automatically:
 
 ```powershell
 conda activate feedstock_advisor
-$env:MCP_API_KEY = "Watsonx_Challenge_2026"
+$env:MCP_API_KEY = "Wa*so*x_*ha*len*e_20*6"
 .\start_ngrok.ps1
 ```
 
@@ -411,3 +411,11 @@ All 18 CSV files are bundled in `data/` and loaded at server startup (~0.5 s).
 ---
 
 *Feedstock Advisor MCP Server — built for the petrochemical trading industry.*
+
+
+sample questions : 
+What crude oils are available, grouped by region?
+What is the forecasted price of WTI in June 2026?
+Simulate a 60/40 WTI/Brent blend — properties and yields?
+Which crude gives the highest diesel yield at Refinery A in August 2026 under 1.5% sulfur?
+What is the diesel market sentiment April–May 2025? Buy or hold?
